@@ -2,6 +2,8 @@
 	var audio = $('#audio')[0]
 	var body = $('body')
 	var galMenu = $('.gal-menu')
+	//在同一DOM元素上实现双击和单击并存
+	var clickTimer = null
 	//	播放器参数初始化
 	var musicPlayer = $('#musicplayer')[0]
 	var preSongBtn = $('#pre-song')
@@ -12,6 +14,9 @@
 	var musicList
 	var musicNum = 0
 	var playingMusicNum = -1
+	// 播放模式：顺序播放->0 单曲循环->1 随机播放->2
+	var playerMode = 0
+	var playerModeStr = "顺序播放（双击切换）"
 	//	获取歌曲列表
 	var xhrMusicList=new XMLHttpRequest()
 	xhrMusicList.onreadystatechange=function(){
@@ -26,20 +31,36 @@
 	//	上一曲
 	preSongBtn.on('click',function(e){
 		console.log("上一首")
-		if(musicList){
+		if(musicNum){
 			if(isMusicPlaying){
-				playOrPauseBtn.click()
+				musicPlayer.pause()
+				isMusicPlaying = false
+				playOrPauseBtn.text("播放")
+				playOrPauseBtn.attr("title",playerModeStr)
 			}
-			if(playingMusicNum==-1){
-				playingMusicNum=0
-			}else{
-				playingMusicNum-=1
+			if(playerMode == 0){
+				if(playingMusicNum==-1){
+					playingMusicNum=0
+				}else{
+					playingMusicNum-=1
+				}
+				if(playingMusicNum<0){
+					playingMusicNum=musicNum-1
+				}
+			}else if(playerMode == 2){
+				do{
+					var tmpNum=Math.floor(Math.random()*musicNum)
+				}while(tmpNum == playingMusicNum)
+				playingMusicNum=tmpNum
+				console.log(playingMusicNum)
 			}
-			if(playingMusicNum<0){
-				playingMusicNum=musicNum-1
+			if(playerMode !== 1){
+				$('#musicplayer').attr("src","https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/gal/music/"+musicList[playingMusicNum].FullName)
 			}
-			$('#musicplayer').attr("src","https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/gal/music/"+musicList[playingMusicNum].FullName)
-			playOrPauseBtn.click()
+			musicPlayer.play()
+			isMusicPlaying = true
+			playOrPauseBtn.text("暂停")
+			playOrPauseBtn.attr("title",playerModeStr)
 		}
 		$(".circle").removeClass("open")
 		$(".GalMenu").delay(400).hide(0)
@@ -49,20 +70,36 @@
 	//	下一曲
 	nextSongBtn.on('click',function(e){
 		console.log("下一首")
-		if(musicList){
+		if(musicNum){
 			if(isMusicPlaying){
-				playOrPauseBtn.click()
+				musicPlayer.pause()
+				isMusicPlaying = false
+				playOrPauseBtn.text("播放")
+				playOrPauseBtn.attr("title",playerModeStr)
 			}
-			if(playingMusicNum==-1){
-				playingMusicNum=0
-			}else{
-				playingMusicNum+=1
+			if(playerMode == 0){
+				if(playingMusicNum==-1){
+					playingMusicNum=0
+				}else{
+					playingMusicNum+=1
+				}
+				if(playingMusicNum>=musicNum){
+					playingMusicNum=0
+				}
+			}else if(playerMode == 2){
+				do{
+					var tmpNum=Math.floor(Math.random()*musicNum)
+				}while(tmpNum == playingMusicNum)
+				playingMusicNum=tmpNum
+				console.log(playingMusicNum)
 			}
-			if(playingMusicNum>=musicNum){
-				playingMusicNum=0
+			if(playerMode !== 1){
+				$('#musicplayer').attr("src","https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/gal/music/"+musicList[playingMusicNum].FullName)
 			}
-			$('#musicplayer').attr("src","https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/gal/music/"+musicList[playingMusicNum].FullName)
-			playOrPauseBtn.click()
+			musicPlayer.play()
+			isMusicPlaying = true
+			playOrPauseBtn.text("暂停")
+			playOrPauseBtn.attr("title","双击停止播放")
 		}
 		$(".circle").removeClass("open")
 		$(".GalMenu").delay(400).hide(0)
@@ -71,27 +108,64 @@
 	})
 	//	播放/暂停
 	playOrPauseBtn.on('click',function(e){
+		if(clickTimer){
+			window.clearTimeout(clickTimer)
+			clickTimer = null
+		}
+		clickTimer = window.setTimeout(function(){
+			if(isMusicPlaying){
+				console.log("暂停")
+				musicPlayer.pause()
+				isMusicPlaying = false
+				playOrPauseBtn.text("播放")
+				playOrPauseBtn.attr("title",playerModeStr)
+			}else{
+				console.log("播放")
+				musicPlayer.play()
+				isMusicPlaying = true
+				playOrPauseBtn.text("暂停")
+				playOrPauseBtn.attr("title","双击停止播放")
+			}			
+			$(".circle").removeClass("open")
+			$(".GalMenu").delay(10000).hide(0)
+			audio.pause()
+			audio.currentTime = 0
+		},233)
+	})
+	//	双击播放/暂停键
+	playOrPauseBtn.on('dblclick',function(e){
+		if(clickTimer){
+			window.clearTimeout(clickTimer)
+			clickTimer = null
+		}
 		if(isMusicPlaying){
-			console.log("暂停")
-			musicPlayer.pause()
+			console.log("停止")
+			musicplayer.pause()
+			musicPlayer.currentTime=0
 			isMusicPlaying = false
 			playOrPauseBtn.text("播放")
+			playOrPauseBtn.attr("title",playerModeStr)
 		}else{
-			console.log("播放")
-			musicPlayer.play()
-			isMusicPlaying = true
-			playOrPauseBtn.text("暂停")
-		}			
-		$(".circle").removeClass("open")
-		$(".GalMenu").delay(400).hide(0)
-		audio.pause()
-		audio.currentTime = 0
+			console.log("切换播放模式")
+			playerMode+=1
+			if(playerMode>2){
+				playerMode=0
+			}
+			if(playerMode == 0){
+				playerModeStr = "顺序播放（双击切换）"
+			}else if(playerMode == 1){
+				playerModeStr = "单曲循环（双击切换）"
+			}else{
+				playerModeStr = "随机播放（双击切换）"
+			}
+		}
 	})
 	//	音乐结束事件
 	musicPlayer.onended = function(){
 		console.log("播放结束")
 		isMusicPlaying = false
 		playOrPauseBtn.text("播放")
+		playOrPauseBtn.attr("title",playerModeStr)
 		nextSongBtn.click()
 	}
 	//////////////////////
