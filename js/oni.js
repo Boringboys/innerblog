@@ -34,6 +34,7 @@
 		if(musicNum){
 			if(isMusicPlaying){
 				musicPlayer.pause()
+				musicplayer.currentTime=0
 				isMusicPlaying = false
 				playOrPauseBtn.text("播放")
 				playOrPauseBtn.attr("title",playerModeStr)
@@ -73,6 +74,7 @@
 		if(musicNum){
 			if(isMusicPlaying){
 				musicPlayer.pause()
+				musicplayer.currentTime=0
 				isMusicPlaying = false
 				playOrPauseBtn.text("播放")
 				playOrPauseBtn.attr("title",playerModeStr)
@@ -158,7 +160,12 @@
 			}else{
 				playerModeStr = "随机播放（双击切换）"
 			}
+			playOrPauseBtn.attr("title",playerModeStr)
 		}
+		$(".circle").removeClass("open")
+		$(".GalMenu").delay(10000).hide(0)
+		audio.pause()
+		audio.currentTime = 0
 	})
 	//	音乐结束事件
 	musicPlayer.onended = function(){
