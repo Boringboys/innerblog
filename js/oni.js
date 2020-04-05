@@ -21,6 +21,7 @@
 	var playerModeTextLab = $('#playermode-text')
 	//滚动歌名
 	var scrollInterval = null
+	var currentScrollLeft = 0
 	var midFullNameTextLab = $('#mid-fullname-text')
 	//	获取歌曲列表
 	var xhrMusicList=new XMLHttpRequest()
@@ -134,16 +135,15 @@
 			if(musicNum){
 				if(playingMusicNum==-1){
 					playingMusicNum=0
+					$('#musicplayer').attr("src","https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/gal/music/"+musicList[playingMusicNum].FullName)
+					if(scrollInterval){
+						clearInterval(scrollInterval)
+						scrollInterval = null
+					}
+					midFullNameTextLab.text(musicList[playingMusicNum].FullName)
+					midFullNameTextLab.scrollLeft(0)
+					scrollInterval = setInterval(function(){ scrollMusicName() }, 1000)
 				}
-				
-				$('#musicplayer').attr("src","https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/gal/music/"+musicList[playingMusicNum].FullName)
-				if(scrollInterval){
-					clearInterval(scrollInterval)
-					scrollInterval = null
-				}
-				midFullNameTextLab.text(musicList[playingMusicNum].FullName)
-				midFullNameTextLab.scrollLeft(0)
-				scrollInterval = setInterval(function(){ scrollMusicName() }, 1000)
 				
 				if(isMusicPlaying){
 					//console.log("暂停")
@@ -204,13 +204,14 @@
 	}
 	//滚动播放歌名
 	function scrollMusicName(){
-		var maxScrollSize = midFullNameTextLab[0].scrollLeftMax
+		//var maxScrollSize = midFullNameTextLab[0].scrollLeftMax
+		midFullNameTextLab.scrollLeft(currentScrollLeft+10)
 		var tmpScrollLeft = midFullNameTextLab.scrollLeft()
-		//console.log(maxScrollSize,tmpScrollLeft)
-		if(tmpScrollLeft>=maxScrollSize){
-			midFullNameTextLab.scrollLeft(0)
+		console.log(tmpScrollLeft,currentScrollLeft)
+		if(tmpScrollLeft == currentScrollLeft){
+			currentScrollLeft = 0
 		}else{
-			midFullNameTextLab.scrollLeft(tmpScrollLeft+10)
+			currentScrollLeft = tmpScrollLeft
 		}
 	}
 	
@@ -229,6 +230,12 @@
 					//console.log(this)
 				}
 			})
+			
+			if(scrollInterval){
+				clearInterval(scrollInterval)
+				scrollInterval = null
+			}
+					
 			$(".circle").removeClass("open")
 			$(".GalMenu").delay(400).hide(0)
 			audio.pause()
@@ -292,11 +299,22 @@
 		})
 
 		if ($("#gal").hasClass("open")) {
+			
+			if(scrollInterval){
+				clearInterval(scrollInterval)
+				scrollInterval = null
+			}
+			
 			$(".circle").removeClass("open")
 			$(".GalMenu").delay(400).hide(0)
 			audio.pause();
 			audio.currentTime = 0
 		} else {
+			
+			if(playingMusicNum !== -1){
+				scrollInterval = setInterval(function(){ scrollMusicName() }, 1000)
+			}
+			
 			$(".circle").addClass("open")
 			if(!isMusicPlaying){
 				audio.play()
