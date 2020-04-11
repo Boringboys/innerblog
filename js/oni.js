@@ -30,12 +30,73 @@
 			var tmpobj=eval("("+xhrMusicList.response+")")
 			musicNum=tmpobj.size
 			musicList=tmpobj.musiclist
+			
+			
+			//	如果已设置cookie，获取并恢复状态
+			var ctmpCurrentTime = getCookie("tmpCurrentTime")
+			var cisMusicPlaying = getCookie("isMusicPlaying")
+			var cplayingMusicNum = getCookie("playingMusicNum")
+			var cplayerMode = getCookie("playerMode")
+			var cplayerModeStr = getCookie("playerModeStr")
+			if(ctmpCurrentTime != "" && cplayingMusicNum != "" && cplayerMode != "" && cplayerModeStr != "" && cplayingMusicNum != -1){
+				console.log(ctmpCurrentTime)
+				tmpCurrentTime = parseFloat(ctmpCurrentTime)
+				console.log(tmpCurrentTime)
+				playingMusicNum = cplayingMusicNum
+				playerMode = cplayerMode
+				playerModeStr = cplayerModeStr
+				
+				//	恢复歌名 设置滚动歌名
+				$('#musicplayer').attr("src","https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/gal/music/"+musicList[playingMusicNum].FullName)
+				if(scrollInterval){
+					clearInterval(scrollInterval)
+					scrollInterval = null
+				}
+				midFullNameTextLab.text("          "+musicList[playingMusicNum].FullName+"          ")
+				midFullNameTextLab.scrollLeft(0)
+				if ($("#gal").hasClass("open")){
+					scrollInterval = setInterval(function(){ scrollMusicName() }, 100)
+				}
+				
+				//	恢复设置播放模式
+				playerModeTextLab.text(playerModeStr)
+				
+				//	恢复播放位置
+				musicPlayer.currentTime = tmpCurrentTime
+				
+				//	如果还在播放或者播放状态还有效
+				if(cisMusicPlaying == "true"){
+					isMusicPlaying = cisMusicPlaying
+					try{
+						musicPlayer.play()
+						isMusicPlaying = true
+						playOrPauseBtn.text("暂停")
+					}
+					catch(err){
+						console.log("无法自动播放")
+						isMusicPlaying = false
+						playOrPauseBtn.text("播放")
+					}
+				}
+			}
+			////
 		}
 	}
 	xhrMusicList.open("GET","https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/gal/music/musiclist.json","true");
 	xhrMusicList.send();
 	
-	
+	//	文档卸载时事件，通过cookie保存状态
+	window.onbeforeunload = function(event) {
+		console.log("保存播放器状态，有效期x天")
+		if(playingMusicNum != -1){
+			tmpCurrentTime = musicPlayer.currentTime
+			setCookie("tmpCurrentTime",tmpCurrentTime,1)
+			setCookie("isMusicPlaying",isMusicPlaying,0.001)
+			setCookie("playingMusicNum",playingMusicNum,1)
+			setCookie("playerMode",playerMode,1)
+			setCookie("playerModeStr",playerModeStr,1)
+		}
+	};
 	//	上一曲
 	preSongBtn.on('click',function(e){
 		//console.log("上一首")
@@ -68,9 +129,11 @@
 					clearInterval(scrollInterval)
 					scrollInterval = null
 				}
-				midFullNameTextLab.text(musicList[playingMusicNum].FullName)
+				midFullNameTextLab.text("          "+musicList[playingMusicNum].FullName+"          ")
 				midFullNameTextLab.scrollLeft(0)
-				scrollInterval = setInterval(function(){ scrollMusicName() }, 1000)
+				if ($("#gal").hasClass("open")){
+					scrollInterval = setInterval(function(){ scrollMusicName() }, 100)
+				}
 			}
 			musicPlayer.play()
 			isMusicPlaying = true
@@ -113,9 +176,11 @@
 					clearInterval(scrollInterval)
 					scrollInterval = null
 				}
-				midFullNameTextLab.text(musicList[playingMusicNum].FullName)
+				midFullNameTextLab.text("          "+musicList[playingMusicNum].FullName+"          ")
 				midFullNameTextLab.scrollLeft(0)
-				scrollInterval = setInterval(function(){ scrollMusicName() }, 1000)
+				if ($("#gal").hasClass("open")){
+					scrollInterval = setInterval(function(){ scrollMusicName() }, 100)
+				}
 			}
 			musicPlayer.play()
 			isMusicPlaying = true
@@ -140,9 +205,9 @@
 						clearInterval(scrollInterval)
 						scrollInterval = null
 					}
-					midFullNameTextLab.text(musicList[playingMusicNum].FullName)
+					midFullNameTextLab.text("          "+musicList[playingMusicNum].FullName+"          ")
 					midFullNameTextLab.scrollLeft(0)
-					scrollInterval = setInterval(function(){ scrollMusicName() }, 1000)
+					scrollInterval = setInterval(function(){ scrollMusicName() }, 100)
 				}
 				
 				if(isMusicPlaying){
@@ -202,18 +267,43 @@
 		
 		nextSongBtn.click()
 	}
-	//滚动播放歌名
+	//	滚动播放歌名
 	function scrollMusicName(){
 		//var maxScrollSize = midFullNameTextLab[0].scrollLeftMax
-		midFullNameTextLab.scrollLeft(currentScrollLeft+10)
+		midFullNameTextLab.scrollLeft(currentScrollLeft+2)
 		var tmpScrollLeft = midFullNameTextLab.scrollLeft()
-		console.log(tmpScrollLeft,currentScrollLeft)
+		//console.log(tmpScrollLeft,currentScrollLeft)
+		
 		if(tmpScrollLeft == currentScrollLeft){
-			currentScrollLeft = 0
+			currentScrollLeft = -2
 		}else{
 			currentScrollLeft = tmpScrollLeft
 		}
 	}
+	//	设置cookie
+	function setCookie(cname, cvalue, exdays) {
+		var d = new Date();
+		d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		var expires = "expires="+ d.toUTCString();
+		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	} 
+	//	获取cookie
+	function getCookie(cname) {
+		var name = cname + "=";
+		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for(var i = 0; i <ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			 }
+			 if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			 }
+		 }
+		return "";
+	} 
+	
 	
 	//////////////////////
 	
@@ -312,7 +402,7 @@
 		} else {
 			
 			if(playingMusicNum !== -1){
-				scrollInterval = setInterval(function(){ scrollMusicName() }, 1000)
+				scrollInterval = setInterval(function(){ scrollMusicName() }, 100)
 			}
 			
 			$(".circle").addClass("open")
