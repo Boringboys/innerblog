@@ -73,13 +73,13 @@
 						
 						function clickToPlay(){
 							musicPlayer.play();
-							document.removeEventListener('touchstart',clickToPlay);
+							document.removeEventListener('mousemove',clickToPlay);
 							if(musicplayer.paused){
 								//
 							}
 						}
 						
-						document.addEventListener('click', clickToPlay)
+						document.addEventListener('mousemove', clickToPlay)
 						
 						//	如果是移动端尝试
 						if(isMobileDev()){
