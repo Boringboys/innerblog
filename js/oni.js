@@ -77,12 +77,12 @@
 							function touchToPlay(){
 								musicPlayer.play();
 								document.removeEventListener('touchstart',touchToPlay);
+								if(musicplayer.paused){
+									alert("触摸播放失败");
+									isMusicPlaying = false;
+								}
 							}
 							document.addEventListener('touchstart',touchToPlay);
-							if(musicplayer.paused){
-								alert("触摸播放失败");
-								isMusicPlaying = false;
-							}
 						}
 					}
 					
