@@ -74,13 +74,13 @@
 						//	如果是移动端尝试
 						if(isMobileDev()){
 							//alert("移动端，自动播放失败");
-							document.addEventListener('DOMContentLoaded', function () {
-								function audioAutoPlay() {
-									var musicEle0 = document.getElementById('musicplayer');
-									musicEle0.play();
-								}
-								audioAutoPlay();
-							});
+							//document.addEventListener('DOMContentLoaded', function () {
+								//function audioAutoPlay() {
+									//var musicEle0 = document.getElementById('musicplayer');
+									//musicEle0.play();
+								//}
+								//audioAutoPlay();
+							//});
 							
 							document.addEventListener('touchstart', function () {
 								function audioAutoPlay() {
