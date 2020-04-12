@@ -66,19 +66,26 @@
 				
 				//	如果还在播放或者播放状态还有效
 				if(cisMusicPlaying == "true"){
-					isMusicPlaying = cisMusicPlaying;
 					musicPlayer.play();
 					//	调用play()失败，没有正常开始播放，可能是没有自动播放权限
 					if(musicplayer.paused){
 						//console.log("播放失败");
 						isMusicPlaying = false;
+						//	如果是移动端尝试
 						if(isMobileDev()){
-							alert("移动端，自动播放失败");
+							//alert("移动端，自动播放失败");
+							function touchToPlay(){
+								musicPlayer.play();
+								document.removeEventListener('touchstart',touchToPlay);
+							}
+							document.addEventListener('touchstart',touchToPlay);
+							if(musicplayer.paused){
+								console.log("触摸播放失败");
+								isMusicPlaying = false;
+							}
 						}
 					}
-					//document.addEventListener('touchstart', function () {
-					//	
-					//});
+					
 				}
 			}
 			////
