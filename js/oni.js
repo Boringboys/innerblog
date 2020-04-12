@@ -66,17 +66,19 @@
 				
 				//	如果还在播放或者播放状态还有效
 				if(cisMusicPlaying == "true"){
-					isMusicPlaying = cisMusicPlaying
-					try{
-						musicPlayer.play()
-						isMusicPlaying = true
-						playOrPauseBtn.text("暂停")
+					isMusicPlaying = cisMusicPlaying;
+					musicPlayer.play();
+					//	调用play()失败，没有正常开始播放，可能是没有自动播放权限
+					if(musicplayer.paused){
+						//console.log("播放失败");
+						isMusicPlaying = false;
+						if(isMobileDev()){
+							alert("移动端，自动播放失败");
+						}
 					}
-					catch(err){
-						console.log("无法自动播放")
-						isMusicPlaying = false
-						playOrPauseBtn.text("播放")
-					}
+					//document.addEventListener('touchstart', function () {
+					//	
+					//});
 				}
 			}
 			////
@@ -85,8 +87,11 @@
 	xhrMusicList.open("GET","https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/gal/music/musiclist.json","true");
 	xhrMusicList.send();
 	
+	
+	
+	
 	//	文档卸载时事件，通过cookie保存状态
-	window.onbeforeunload = function(event) {
+	window.onunload = function(event) {
 		console.log("保存播放器状态，有效期x天")
 		if(playingMusicNum != -1){
 			tmpCurrentTime = musicPlayer.currentTime
@@ -97,6 +102,8 @@
 			setCookie("playerModeStr",playerModeStr,1)
 		}
 	};
+	
+	
 	//	上一曲
 	preSongBtn.on('click',function(e){
 		//console.log("上一首")
@@ -104,8 +111,6 @@
 			if(isMusicPlaying){
 				musicPlayer.pause()
 				musicplayer.currentTime=0
-				isMusicPlaying = false
-				playOrPauseBtn.text("播放")	
 			}
 			if(playerMode == 0){
 				if(playingMusicNum==-1){
@@ -136,9 +141,6 @@
 				}
 			}
 			musicPlayer.play()
-			isMusicPlaying = true
-			playOrPauseBtn.text("暂停")
-			
 		}
 		audio.pause()
 		audio.currentTime = 0
@@ -150,9 +152,6 @@
 			if(isMusicPlaying){
 				musicPlayer.pause()
 				musicplayer.currentTime=0
-				isMusicPlaying = false
-				playOrPauseBtn.text("播放")
-				
 			}
 			if(playerMode == 0){
 				if(playingMusicNum==-1){
@@ -183,8 +182,6 @@
 				}
 			}
 			musicPlayer.play()
-			isMusicPlaying = true
-			playOrPauseBtn.text("暂停")
 			
 		}
 		audio.pause()
@@ -212,16 +209,10 @@
 				
 				if(isMusicPlaying){
 					//console.log("暂停")
-					musicPlayer.pause()
-					isMusicPlaying = false
-					playOrPauseBtn.text("播放")
-					
+					musicPlayer.pause()	
 				}else{
 					//console.log("播放")
-					musicPlayer.play()
-					isMusicPlaying = true
-					playOrPauseBtn.text("暂停")
-					
+					musicPlayer.play()	
 				}
 			}				
 			audio.pause()
@@ -237,11 +228,6 @@
 		//console.log("停止")
 		musicplayer.pause()
 		musicPlayer.currentTime=0
-		isMusicPlaying = false
-		playOrPauseBtn.text("播放")	
-		
-		audio.pause()
-		audio.currentTime = 0
 	})
 	//	点击中键
 	middleBtn.on('click',function(e){
@@ -262,10 +248,19 @@
 	//	音乐结束事件
 	musicPlayer.onended = function(){
 		//console.log("播放结束")
-		isMusicPlaying = false
-		playOrPauseBtn.text("播放")
-		
 		nextSongBtn.click()
+	}
+	// 音乐开始播放事件
+	musicPlayer.onplaying = function(){
+		console.log("开始播放");
+		isMusicPlaying = true;
+		playOrPauseBtn.text("暂停");
+	}
+	//	音乐暂停事件
+	musicPlayer.onpause = function(){
+		console.log("暂停播放");
+		isMusicPlaying = false;
+		playOrPauseBtn.text("播放");
 	}
 	//	滚动播放歌名
 	function scrollMusicName(){
@@ -303,7 +298,16 @@
 		 }
 		return "";
 	} 
-	
+	//	判断是否是移动端（不完全可靠）
+	function isMobileDev(){
+		if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))){
+			//alert('移动端');
+			return true;
+		}else{
+			//alert('pc端');
+			return false;
+		}
+	}
 	
 	//////////////////////
 	
