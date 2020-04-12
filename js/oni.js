@@ -83,11 +83,7 @@
 							//});
 							
 							document.addEventListener('touchstart', function () {
-								function audioAutoPlay() {
-									var musicEle0 = document.getElementById('musicplayer');
-									musicEle0.play();
-								}
-								audioAutoPlay();
+								musicPlayer.play();
 							});
 							
 							//function touchToPlay(){
