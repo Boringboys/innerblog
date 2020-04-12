@@ -73,13 +73,13 @@
 						
 						function clickToPlay(){
 							musicPlayer.play();
-							document.removeEventListener('mousemove',clickToPlay);
+							document.removeEventListener('touchmove',clickToPlay);
 							if(musicplayer.paused){
 								//
 							}
 						}
 						
-						document.addEventListener('mousemove', clickToPlay)
+						document.addEventListener('touchmove', clickToPlay)
 						
 						//	如果是移动端尝试
 						if(isMobileDev()){
@@ -92,7 +92,7 @@
 								//audioAutoPlay();
 							//});
 							
-							document.addEventListener('click', clickToPlay)
+							document.addEventListener('touchmove ', clickToPlay)
 							
 							//function touchToPlay(){
 							//	musicPlayer.play();
