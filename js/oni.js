@@ -80,7 +80,7 @@
 							}
 							document.addEventListener('touchstart',touchToPlay);
 							if(musicplayer.paused){
-								console.log("触摸播放失败");
+								alert("触摸播放失败");
 								isMusicPlaying = false;
 							}
 						}
