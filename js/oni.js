@@ -42,7 +42,7 @@
 				console.log(ctmpCurrentTime)
 				tmpCurrentTime = parseFloat(ctmpCurrentTime)
 				console.log(tmpCurrentTime)
-				playingMusicNum = cplayingMusicNum
+				playingMusicNum = parseInt(cplayingMusicNum)
 				playerMode = cplayerMode
 				playerModeStr = cplayerModeStr
 				
@@ -72,13 +72,14 @@
 						//console.log("播放失败");
 						
 						function clickToPlay(){
-							musicPlayer.play();
-							document.removeEventListener('click',clickToPlay);
-							if(musicplayer.paused){
-								//
+							if (!$("#gal").hasClass("open")){
+								musicPlayer.play();
+								document.removeEventListener('click',clickToPlay);
+								if(musicplayer.paused){
+									//
+								}
 							}
 						}
-						
 						document.addEventListener('click', clickToPlay)
 						
 						//	如果是移动端尝试
