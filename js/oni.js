@@ -39,9 +39,9 @@
 			var cplayerMode = getCookie("playerMode")
 			var cplayerModeStr = getCookie("playerModeStr")
 			if(ctmpCurrentTime != "" && cplayingMusicNum != "" && cplayerMode != "" && cplayerModeStr != "" && cplayingMusicNum != -1){
-				console.log(ctmpCurrentTime)
+				//console.log(ctmpCurrentTime)
 				tmpCurrentTime = parseFloat(ctmpCurrentTime)
-				console.log(tmpCurrentTime)
+				//console.log(tmpCurrentTime)
 				playingMusicNum = parseInt(cplayingMusicNum)
 				playerMode = cplayerMode
 				playerModeStr = cplayerModeStr
@@ -52,10 +52,10 @@
 					clearInterval(scrollInterval)
 					scrollInterval = null
 				}
-				midFullNameTextLab.text("          "+musicList[playingMusicNum].FullName+"          ")
+				midFullNameTextLab.html("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"+musicList[playingMusicNum].FullName+"&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;")
 				midFullNameTextLab.scrollLeft(0)
 				if ($("#gal").hasClass("open")){
-					scrollInterval = setInterval(function(){ scrollMusicName() }, 100)
+					scrollInterval = setInterval(function(){ scrollMusicName() }, 30)
 				}
 				
 				//	恢复设置播放模式
@@ -70,19 +70,32 @@
 					//	如果调用play()失败，没有正常开始播放，可能是没有自动播放权限
 					if(musicplayer.paused){
 						//console.log("播放失败");
-						
 						function clickToPlay(){
 							if (!$("#gal").hasClass("open")){
 								musicPlayer.play();
 								document.removeEventListener('click',clickToPlay);
 								if(musicplayer.paused){
 									//
+								}else{
+									document.removeEventListener('touchstart',touchToPlay);
 								}
 							}
 						}
-						document.addEventListener('click', clickToPlay)
+						function touchToPlay(){
+							if (!$("#gal").hasClass("open")){
+								musicPlayer.play();
+								document.removeEventListener('touchstart',touchToPlay);
+								if(musicplayer.paused){
+									//alert("触摸播放失败");
+								}else{
+									document.removeEventListener('click',clickToPlay);
+								}
+							}
+						}
 						
-						//	如果是移动端尝试
+						//document.addEventListener('click', clickToPlay)
+						
+						//	如果是移动端，尝试
 						if(isMobileDev()){
 							//alert("移动端，自动播放失败");
 							//document.addEventListener('DOMContentLoaded', function () {
@@ -92,18 +105,8 @@
 								//}
 								//audioAutoPlay();
 							//});
-							
 							document.addEventListener('click ', clickToPlay)
-							
-							//function touchToPlay(){
-							//	musicPlayer.play();
-							//	document.removeEventListener('touchstart',touchToPlay);
-							//	if(musicplayer.paused){
-							//		alert("触摸播放失败");
-							//	isMusicPlaying = false;
-							//	}
-							//}
-							//document.addEventListener('touchstart',touchToPlay);
+							document.addEventListener('touchstart',touchToPlay);
 						}
 					}
 					
@@ -162,10 +165,10 @@
 					clearInterval(scrollInterval)
 					scrollInterval = null
 				}
-				midFullNameTextLab.text("          "+musicList[playingMusicNum].FullName+"          ")
+				midFullNameTextLab.html("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"+musicList[playingMusicNum].FullName+"&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;")
 				midFullNameTextLab.scrollLeft(0)
 				if ($("#gal").hasClass("open")){
-					scrollInterval = setInterval(function(){ scrollMusicName() }, 100)
+					scrollInterval = setInterval(function(){ scrollMusicName() }, 30)
 				}
 			}
 			musicPlayer.play()
@@ -203,10 +206,10 @@
 					clearInterval(scrollInterval)
 					scrollInterval = null
 				}
-				midFullNameTextLab.text("          "+musicList[playingMusicNum].FullName+"          ")
+				midFullNameTextLab.html("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"+musicList[playingMusicNum].FullName+"&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;")
 				midFullNameTextLab.scrollLeft(0)
 				if ($("#gal").hasClass("open")){
-					scrollInterval = setInterval(function(){ scrollMusicName() }, 100)
+					scrollInterval = setInterval(function(){ scrollMusicName() }, 30)
 				}
 			}
 			musicPlayer.play()
@@ -230,9 +233,9 @@
 						clearInterval(scrollInterval)
 						scrollInterval = null
 					}
-					midFullNameTextLab.text("          "+musicList[playingMusicNum].FullName+"          ")
+					midFullNameTextLab.html("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"+musicList[playingMusicNum].FullName+"&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;")
 					midFullNameTextLab.scrollLeft(0)
-					scrollInterval = setInterval(function(){ scrollMusicName() }, 100)
+					scrollInterval = setInterval(function(){ scrollMusicName() }, 30)
 				}
 				
 				if(isMusicPlaying){
@@ -434,7 +437,7 @@
 		} else {
 			
 			if(playingMusicNum !== -1){
-				scrollInterval = setInterval(function(){ scrollMusicName() }, 100)
+				scrollInterval = setInterval(function(){ scrollMusicName() }, 30)
 			}
 			
 			$(".circle").addClass("open")
