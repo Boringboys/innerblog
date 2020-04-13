@@ -84,7 +84,7 @@
 						function touchToPlay(){
 							if (!$("#gal").hasClass("open")){
 								musicPlayer.play();
-								document.removeEventListener('touchstart',touchToPlay);
+								//document.removeEventListener('touchstart',touchToPlay);
 								if(musicplayer.paused){
 									//alert("触摸播放失败");
 								}else{
