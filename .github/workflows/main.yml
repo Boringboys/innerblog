@@ -1,0 +1,56 @@
+name: Build and Deploy my gitpages
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  USER: Boringboys
+  EMAIL: boringboys@fakeemail.com
+  DEPLOY_REPO: Boringboys/innerblog
+  DEPLOY_BRANCH: pages
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check-out
+        uses: actions/checkout@v2
+
+      - name: Check-Out-Deploy-Branch
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ env.DEPLOY_REPO }}
+          ref: ${{ env.DEPLOY_BRANCH }}
+          path: .deploy_git
+        
+      - name: Set-Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      
+      - name: Configuration-Environment
+        env:
+          AUTO_DEPLOY_KEY: ${{ secrets.AUTO_DEPLOY_KEY }}
+        run: |
+          sudo timedatectl set-timezone "Asia/Shanghai"
+          mkdir -p ~/.ssh/
+          echo "$AUTO_DEPLOY_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.name $USER
+          git config --global user.email $EMAIL
+      
+      - name: Install-Dependencies
+        run: |
+          npm install
+
+      - name: Build
+        run: |
+          npm run build
+      
+      - name: Deploy
+        run: |
+          npm run deploy
