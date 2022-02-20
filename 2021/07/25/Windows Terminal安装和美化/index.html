@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Boringboys">
+	
+	<link rel="icon" href="/imgs/headpic-lingmeng.png">
+    
+	
+    <meta name="description" content="我的博客">
+    
+    
+    
+    
+    
+    
+    <title>Windows Terminal安装和美化 | Auwaves</title>
+    <link href="https://www.auwaves.com" rel="prefetch" />
+
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/js/jquery.min.js"></script>
+
+    
+<script src="/js/bootstrap.min.js"></script>
+
+    
+<script src="/js/aos.js"></script>
+
+    
+<script src="/js/highslide/highslide-full.min.js"></script>
+
+    
+<link rel="stylesheet" href="/js/highslide/highslide.css">
+
+    <style type="text/css">
+        @media (max-width: 768px) {
+            body {
+                background-color: #f0f0f0;
+                background: url('/imgs/xsbg.gif');
+                background-attachment: fixed;
+            }
+        }
+    </style>
+    
+    <!--<script type="text/javascript">
+      if (document.images) {
+        var avatar = new Image();
+        avatar.src = '/imgs/headpic-lingmeng.png'
+        var previews = 'preview1.jpg,preview2.jpg,preview3.jpg,preview4.jpg,preview5.jpg'.split(',')
+        var previewsPreLoad = []
+        for(var i = 0; i < length; i++) {
+          previewsPreLoad.push(new Image())
+          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
+        }
+      }
+    </script>-->
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <!-- 背景轮播图功能 -->
+    <section class="hidden-xs">
+    <ul class="cb-slideshow">
+        <li><span>少看书</span></li>
+        <li><span>少看书</span></li>
+        <li><span>少看</span></li>
+        <li><span>那些</span></li>
+        <li><span>没用</span></li>
+        <li><span>的书</span></li>
+    </ul>
+</section>
+    <!-- 欧尼酱功能, 谁用谁知道 -->
+    
+    <div class="gal-menu gal-dropdown">
+    <div class="circle" id="gal">
+        <div class="ring">
+            <a href="https://www.auwaves.com" class="menuItem" style="left: 50%; top: 15%;">首页</a>
+            
+            <a class="menuItem" style="left: 80.3109%; top: 32.5%;">下一页</a>
+            
+			
+			<a class="menuItem" style="left: 80.3109%; top: 67.5%;" id="next-song">下一曲</a>
+            <a class="menuItem" style="left: 50%; top: 85%;" id="play-or-pause" title="双击停止">播放</a>
+            <a class="menuItem" style="left: 19.6891%; top: 67.5%;" id="pre-song">上一曲</a>
+			
+			<!--
+            <a href="/archives" class="menuItem" style="left: 80.3109%; top: 67.5%;">归档</a>
+            <a href="/about" class="menuItem" style="left: 50%; top: 85%;">关于</a>
+            <a href="/message" class="menuItem" style="left: 19.6891%; top: 67.5%;">留言板</a>
+			-->
+			
+            
+            <a class="menuItem" style="left: 19.6891%; top: 32.5%;">上一页</a>
+            
+			
+			<a class="menuItemMid" style="left: 43.45%; top: 43.45%;" id="middle-btn">	
+				<p id="mid-fullname-text">无</p>
+				<p id="playermode-text">顺序播放</p>
+			</a>
+        </div>
+        <audio id="audio" src="/imgs/oni.mp3"></audio>
+		<audio id="musicplayer" src="/imgs/oni.mp3"></audio>
+    </div>
+</div>
+    
+    <header class="navbar navbar-inverse" id="gal-header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target=".bs-navbar-collapse"
+                    aria-expanded="false">
+                <span class="fa fa-lg fa-reorder"></span>
+            </button>
+            <a href="https://www.auwaves.com">
+                
+                <style>
+                    #gal-header .navbar-brand {
+                        height: 54px;
+                        line-height: 24px;
+                        font-size: 28px;
+                        opacity: 1;
+                        background-color: rgba(0,0,0,0);
+                        text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF;
+                    }
+                </style>
+                <!-- 这里使用文字(navbar_text or config.title) -->
+                <div class="navbar-brand">Auwaves</div>
+                
+            </a>
+        </div>
+        <div class="collapse navbar-collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav" id="menu-gal">
+                
+                
+                <li class="">
+                    <a href="/">
+                        <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                
+                
+                <li class="">
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>归档
+                    </a>
+                </li>
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-list"></i>分类
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/CTF/">CTF</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="/categories">...</a>
+                        </li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-tags"></i>标签
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/tags/%E5%BB%B6%E8%BF%9F%E9%80%80%E4%BC%91/">延迟退休</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E7%A6%BB%E5%A9%9A%E5%86%B7%E9%9D%99/">离婚冷静</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/%E6%81%B6%E6%84%8F%E8%BF%94%E4%B9%A1/">恶意返乡</a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="/tags">...</a>
+                        </li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                <li class="">
+                    <a href="/about">
+                        <i class="fa fa-user"></i>关于我
+                    </a>
+                </li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</header>
+    <div id="gal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 gal-right" id="mainstay">
+                    
+<article class="article well article-body" id="article">
+    <div class="breadcrumb">
+        <i class="fa fa-home"></i>
+        <a href="https://www.auwaves.com">Auwaves</a>
+        >
+        <span>Windows Terminal安装和美化</span>
+    </div>
+    <!-- 大型设备详细文章 -->
+    <div class="hidden-xs">
+        <div class="title-article">
+            <h1>
+                <a href="/2021/07/25/Windows%20Terminal%E5%AE%89%E8%A3%85%E5%92%8C%E7%BE%8E%E5%8C%96/">Windows Terminal安装和美化</a>
+            </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>, 
+                
+                <a href="/tags/Windows-Terminal/">Windows Terminal</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2021-07-25
+            </span>
+            
+        </div>
+    </div>
+    <!-- 小型设备详细文章 -->
+    <div class="visible-xs">
+        <center>
+            <div class="title-article">
+                <h4>
+                    <a href="/2021/07/25/Windows%20Terminal%E5%AE%89%E8%A3%85%E5%92%8C%E7%BE%8E%E5%8C%96/">Windows Terminal安装和美化</a>
+                </h4>
+            </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2021-07-25
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>, 
+                
+                <a href="/tags/Windows-Terminal/">Windows Terminal</a>
+                
+                
+                
+            </p>
+        </center>
+    </div>
+    <div class="content-article">
+        <p>最近撸了人生中第一台自己的游戏主机（当然除了显卡，暂时是买不起了，也不太敢买），除了玩游戏，当然也得拿来学习啊，就开始配置之前的一些环境。索性就记录一下Windows Terminal的安装和简单美化。</p>
+<a id="more"></a>
+
+<h2 id="安装-Windows-Terminal"><a href="#安装-Windows-Terminal" class="headerlink" title="安装 Windows Terminal"></a>安装 Windows Terminal</h2><p>从微软应用商店安装 <strong>Windows Terminal</strong>：</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/%E4%BB%8EMicrosoft%20Store%E5%AE%89%E8%A3%85Windows%20Terminal.png" alt="从Microsoft Store安装Windows Terminal"></p>
+<p>Windows Terminal截图如下：</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/Windows%20Terminal%E6%88%AA%E5%9B%BE.png" alt="Windows Terminal截图"></p>
+<h2 id="Windows-Terminal-配置主题"><a href="#Windows-Terminal-配置主题" class="headerlink" title="Windows Terminal 配置主题"></a>Windows Terminal 配置主题</h2><p>点击 <strong>新建标签页旁的下拉倒三角-&gt;Settings（设置）</strong> 打开设置页面：</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/Windows%20Terminal%E8%AE%BE%E7%BD%AE%E5%85%A5%E5%8F%A3.png" alt="Windows Terminal设置入口"></p>
+<p>在设置页面左侧点击 <strong>Open JSON file（打开JSON文件）</strong> ，从而通过Json配置文件进行自定义设置：</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/Windows%20Terminal%20Json%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" alt="Windows Terminal Json配置文件"></p>
+<p>配置文件结构大致长下图这样，文件中的注释已经讲述了不同配置位置的作用，我这里就稍微再详细描述一下，其中 <strong>schemes</strong> 列表中存放一些配色方案，</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/Windows%20Terminal%20%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%9A%84%E4%BD%8D%E7%BD%AE.png" alt="Windows Terminal 自定义主题添加的位置"></p>
+<p>配色方案添加的格式如下图所示，可以添加很多个配色方案，并给他们定义对应的名字，方便在自定义配置中引用：</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/Windows%20Terminal%20%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%BB%E9%A2%98%E5%B9%B6%E9%85%8D%E7%BD%AE%E4%B8%BB%E9%A2%98%E5%90%8D%E5%AD%97.png" alt="Windows Terminal 添加自定义主题并配置主题名字"></p>
+<blockquote>
+<p>至于什么是配色方案？emmm…据我的观察，应该就是定义红（red）是什么样的红，黑（black）是什么样的黑，以及黄（yellow）是什么样的黄这样的配置，以此类推，（逃）</p>
+</blockquote>
+<p>然后是 <strong>profiles</strong>，这里就是添加一些配置的地方了，其中 <strong>profiles-&gt;list</strong> 列表中保存一些单独的配置，而 <strong>profiles-&gt;defaults</strong> 中是应用到所有配置中的通用配置，列表中的每个配置都有自己的名字，配置添加格式和 <strong>schemes</strong> 列表一样：</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/Windows%20Terminal%20%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE.png" alt="Windows Terminal 自定义配置"></p>
+<ul>
+<li><p><strong>colorScheme</strong> 参数即配色方案，可以引用上面定义的那些配色方案。注意，每个配置（profile）的配色方案也可以不通过colorScheme参数引用，而是直接把配色方案写在配置中；</p>
+</li>
+<li><p><strong>commandline</strong> 参数设置了该配置使用的终端，包括powershell、cmd、git等…</p>
+</li>
+<li><p><strong>fontFace</strong> 参数设置该配置使用的字体</p>
+</li>
+<li><p><strong>tabTitle</strong> 参数是此配置打开的标签的标题；</p>
+</li>
+<li><p><strong>name</strong> 参数就是该配置的名字，出现在打开新标签页的下拉菜单中；</p>
+</li>
+</ul>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/Windows%20Terminal%20%E9%85%8D%E7%BD%AE%E7%9A%84name%E5%92%8CtabTitle.png" alt="Windows Terminal 配置的name和tabTitle"></p>
+<p>这个网站有一些别人提供的配置，可以参考一下：<br><a href="https://terminalsplash.com/" target="_blank" rel="noopener">https://terminalsplash.com/</a></p>
+<p>配置背景图片，通过 <strong>backgroundImage</strong> 参数可以自定义终端的背景图片，同时也可以通过参数配置背景图片的位置、透明度等：</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/Windows%20Terminal%20%E9%85%8D%E7%BD%AE%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87.png" alt="Windows Terminal配置背景图片"></p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/Windows%20Terminal%20%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87.png" alt="Windows Terminal背景图片"></p>
+<h2 id="安装-oh-my-posh"><a href="#安装-oh-my-posh" class="headerlink" title="安装 oh-my-posh"></a>安装 oh-my-posh</h2><p>为了有和Linux上 <strong>oh-my-zsh</strong> 类似的体验，下面还会安装 <strong>oh-my-posh</strong> 模块对Powershell进一步进行美化</p>
+<p>使用管理员身份启动Powershell，安装 <strong>posh-git</strong> 和 <strong>oh-my-posh</strong> 模块，安装前设置权限为 <strong>RemoteSigned</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Install-Module posh-git -Scope CurrentUser</span><br><span class="line">Install-Module oh-my-posh -Scope CurrentUser</span><br></pre></td></tr></table></figure>
+
+<p>安装时如果提示需要安装 <strong>NuGet</strong>，同意安装即可。</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/%E5%AE%89%E8%A3%85posh-git.png" alt="安装posh-git"></p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/%E5%AE%89%E8%A3%85oh-my-posh.png" alt="安装oh-my-posh"></p>
+<p>为了让Powershell有彩色输出，还需要安装 <strong>Get-ChildItemColor</strong> 模块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install-Module -AllowClobber Get-ChildItemColor</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/%E5%AE%89%E8%A3%85Get-ChildItemColor.png" alt="安装Get-ChildItemColo"></p>
+<p>编辑 <strong>Powershell 配置文件</strong> </p>
+<p><code>$PROFILE</code> 查看配置文件路径</p>
+<p><code>code $PROFILE</code> 使用vscode打开配置文件，使用其他编辑器的自行操作，用什么编辑器不重要</p>
+<p>在配置文件中，输入以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Import-Module posh-git</span><br><span class="line">Import-Module oh-my-posh</span><br><span class="line">Set-PoshPrompt -Theme half-life  &#x2F;&#x2F; 设置主题</span><br><span class="line">If (-Not (Test-Path Variable:PSise)) &#123;</span><br><span class="line">    Import-Module Get-ChildItemColor</span><br><span class="line">    Set-Alias l Get-ChildItem -option AllScope</span><br><span class="line">    Set-Alias ls Get-ChildItemColorFormatWide -option AllScope</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>Set-PoshPrompt -Theme half-life</code> 设置了 <strong>oh-my-posh</strong> 主题 <strong>half-life</strong>，这里可以根据自己喜好选择不同的主题，可以通过命令 <code>Get-PoshThemes</code> 获取主题列表</p>
+<p>配置后的Powershell的样子：</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/%E9%85%8D%E7%BD%AEoh-my-posh%E4%B9%8B%E5%90%8E%E7%9A%84%E6%A0%B7%E5%AD%90.png" alt="配置oh-my-posh之后的样子"></p>
+<p>可以看到有一些乱码，因为很多oh-my-posh主题使用的是powerline字体，你的系统上可能没有安装，可以自行到这里下载并安装自己喜欢的powerline字体：<a href="https://github.com/powerline/fonts" target="_blank" rel="noopener">https://github.com/powerline/fonts</a></p>
+<p>安装好字体后还需要配置Windows Terminal使用安装好的字体才可以</p>
+<p>Windows Terminal字体的配置就是在上面提到的 <strong>profile</strong> 中的 <strong>fontFace</strong> 参数</p>
+<p>针对vscode等其它应用，也需要配置终端使用powerline字体才可以正常显示，具体方法自行检索</p>
+<p><strong>oh-my-posh</strong> 展示</p>
+<p><img src="https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/Windows-Terminal-Install/oh-my-posh%E4%B8%BB%E9%A2%98%E5%B1%95%E7%A4%BA.png" alt="oh-my-posh主题展示"></p>
+<blockquote>
+<p>参考教程：<a href="https://blog.reilkay.com/BeautifyWindowsTerminal/" target="_blank" rel="noopener">https://blog.reilkay.com/BeautifyWindowsTerminal/</a></p>
+</blockquote>
+
+    </div>
+</article>
+
+
+                </div>
+                <aside class="col-md-4 gal-left" id="sidebar">
+    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
+<aside id="sidebar-search">
+    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <form class="form-inline clearfix" id="search-form" method="get"
+              action="/search/index.html">
+            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
+            <button class="btn btn-danger btn-gal" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+</aside>
+    <aside id="sidebar-author">
+    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
+        <div class="panel-heading" style="text-align: center">
+            <i class="fa fa-quote-left"></i>
+            Boringboys
+            <i class="fa fa-quote-right"></i>
+        </div>
+        <div class="author-panel text-center">
+            <img src="/imgs/headpic-lingmeng.png" width="140" height="140"
+                 alt="个人头像" class="author-image">
+            <p class="author-description"><p>我的博客</p>
+</p>
+        </div>
+    </div>
+</aside>
+    
+    <aside id="sidebar-recent_comments">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-comments"></i>
+            最新评论
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush"></ul>
+    </div>
+</aside>
+    
+    <!-- 要配置好leancloud才能开启此小工具 -->
+    
+    
+    <aside id="sidebar-recent_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            近期文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2021/07/25/Windows%20Terminal%E5%AE%89%E8%A3%85%E5%92%8C%E7%BE%8E%E5%8C%96/">Windows Terminal安装和美化</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2021/01/16/%E5%AF%B9linux%E7%AE%A1%E9%81%93%E5%92%8Cgrep%EF%BC%8Cxrags%E7%9A%84%E5%AD%A6%E4%B9%A0/">对linux管道和grep，xrags的学习</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/20/KCTF2020%20WriteUp/">KCTF2020 WriteUp</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/24/%E7%BD%91%E7%BB%9C%E7%AF%87%E4%B9%8B%E5%B9%BF%E6%92%AD%E5%9F%9F%E5%92%8C%E5%86%B2%E7%AA%81%E5%9F%9F/">广播域和冲突域</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/09/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2018/12/04/%E5%AF%86%E7%A0%81%E5%AD%A6Diffie-Hellman%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2%E5%8D%8F%E8%AE%AE/">密码学 Diffie-Hellman密钥交换协议</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2018/06/11/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">汇编语言学习笔记（一）</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2018/04/23/Nessus%E5%9C%A8Windows%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85/">Nessus在Windows上的安装</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2018/03/29/Metasploit%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/">Metasploit命令学习</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/1899/11/30/Hello_World/">Hello World?</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="sidebar-rand_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            随机文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/1899/11/30/Hello_World/">Hello World?</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2020/11/20/KCTF2020%20WriteUp/">KCTF2020 WriteUp</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2018/03/29/Metasploit%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/">Metasploit命令学习</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2018/04/23/Nessus%E5%9C%A8Windows%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85/">Nessus在Windows上的安装</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2021/07/25/Windows%20Terminal%E5%AE%89%E8%A3%85%E5%92%8C%E7%BE%8E%E5%8C%96/">Windows Terminal安装和美化</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2018/12/04/%E5%AF%86%E7%A0%81%E5%AD%A6Diffie-Hellman%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2%E5%8D%8F%E8%AE%AE/">密码学 Diffie-Hellman密钥交换协议</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2021/01/16/%E5%AF%B9linux%E7%AE%A1%E9%81%93%E5%92%8Cgrep%EF%BC%8Cxrags%E7%9A%84%E5%AD%A6%E4%B9%A0/">对linux管道和grep，xrags的学习</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/09/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2018/06/11/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">汇编语言学习笔记（一）</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/24/%E7%BD%91%E7%BB%9C%E7%AF%87%E4%B9%8B%E5%B9%BF%E6%92%AD%E5%9F%9F%E5%92%8C%E5%86%B2%E7%AA%81%E5%9F%9F/">广播域和冲突域</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="gal-sets">
+        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+            <ul class="nav nav-pills pills-gal">
+
+                
+                <li>
+                    <a href="/2021/07/25/Windows%20Terminal%E5%AE%89%E8%A3%85%E5%92%8C%E7%BE%8E%E5%8C%96/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2021/07/25/Windows%20Terminal%E5%AE%89%E8%A3%85%E5%92%8C%E7%BE%8E%E5%8C%96/index.html#sidebar-friend-links" data-toggle="tab" id="friend-links-tab">友情链接</a>
+                </li>
+                
+                
+                <li>
+                    <a href="/2021/07/25/Windows%20Terminal%E5%AE%89%E8%A3%85%E5%92%8C%E7%BE%8E%E5%8C%96/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                </li>
+                
+            </ul>
+            <div class="tab-content">
+                
+                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
+    
+    <a href="/tags/%E5%BB%B6%E8%BF%9F%E9%80%80%E4%BC%91/" style="font-size: 15.824603047445171px;" class="tag-cloud-link">延迟退休</a>
+    
+    <a href="/tags/%E7%A6%BB%E5%A9%9A%E5%86%B7%E9%9D%99/" style="font-size: 12.421050784578188px;" class="tag-cloud-link">离婚冷静</a>
+    
+    <a href="/tags/%E6%81%B6%E6%84%8F%E8%BF%94%E4%B9%A1/" style="font-size: 11.445643938560703px;" class="tag-cloud-link">恶意返乡</a>
+    
+    <a href="/tags/%E5%BC%82%E5%B8%B8%E7%BB%B4%E6%9D%83/" style="font-size: 13.257050141508046px;" class="tag-cloud-link">异常维权</a>
+    
+    <a href="/tags/WEB/" style="font-size: 14.30870401411233px;" class="tag-cloud-link">WEB</a>
+    
+    <a href="/tags/CTF/" style="font-size: 10.564920763603086px;" class="tag-cloud-link">CTF</a>
+    
+    <a href="/tags/%E9%80%86%E5%90%91/" style="font-size: 19.86444797578291px;" class="tag-cloud-link">逆向</a>
+    
+    <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 9.724159624748346px;" class="tag-cloud-link">安全</a>
+    
+    <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 17.81653313741904px;" class="tag-cloud-link">工具</a>
+    
+    <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 19.316515949271132px;" class="tag-cloud-link">学习</a>
+    
+    <a href="/tags/Windows-Terminal/" style="font-size: 15.82886818991453px;" class="tag-cloud-link">Windows Terminal</a>
+    
+    <a href="/tags/grep/" style="font-size: 14.933145196337327px;" class="tag-cloud-link">grep</a>
+    
+    <a href="/tags/xargs/" style="font-size: 14.29200844563215px;" class="tag-cloud-link">xargs</a>
+    
+    <a href="/tags/%E7%AE%A1%E9%81%93/" style="font-size: 17.494220074365806px;" class="tag-cloud-link">管道</a>
+    
+    <a href="/tags/Linux/" style="font-size: 16.38356970851316px;" class="tag-cloud-link">Linux</a>
+    
+    <a href="/tags/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D/" style="font-size: 16.3166515151605px;" class="tag-cloud-link">正则匹配</a>
+    
+    <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" style="font-size: 14.894066188420485px;" class="tag-cloud-link">汇编语言</a>
+    
+    <a href="/tags/%E5%B9%BF%E6%92%AD%E5%9F%9F/" style="font-size: 18.555989879978952px;" class="tag-cloud-link">广播域</a>
+    
+    <a href="/tags/%E5%86%B2%E7%AA%81%E5%9F%9F/" style="font-size: 11.2908733417804px;" class="tag-cloud-link">冲突域</a>
+    
+    <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10.127538977558181px;" class="tag-cloud-link">网络</a>
+    
+</div>
+                
+                
+                <div class="friend-links tab-pane nav bs-sidenav fade" id="sidebar-friend-links">
+    
+    <li>
+        <a href="http://boringboys.top" target="_blank">Boringboys</a>
+    </li>
+    
+</div>
+                
+                
+                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
+    
+    <li>
+        <a href="https://github.com/Boringboys/" target="_blank">Github</a>
+    </li>
+    
+</div>
+                
+            </div>
+        </div>
+    </aside>
+    
+</aside>
+            </div>
+        </div>
+    </div>
+    <footer id="gal-footer">
+    <div class="container">
+        Copyright © 2018 Boringboys Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+    </div>
+</footer>
+
+<!-- 回到顶端 -->
+<div id="gal-gotop">
+    <i class="fa fa-angle-up"></i>
+</div>
+</body>
+
+<script src="/js/activate-power-mode.js"></script>
+
+<script>
+
+    // 配置highslide
+	hs.graphicsDir = '/js/highslide/graphics/'
+    hs.outlineType = "rounded-white";
+    hs.dimmingOpacity = 0.8;
+    hs.outlineWhileAnimating = true;
+    hs.showCredits = false;
+    hs.captionEval = "this.thumb.alt";
+    hs.numberPosition = "caption";
+    hs.align = "center";
+    hs.transitions = ["expand", "crossfade"];
+    hs.lang.number = '共%2张图, 当前是第%1张';
+    hs.addSlideshow({
+      interval: 5000,
+      repeat: true,
+      useControls: true,
+      fixedControls: "fit",
+      overlayOptions: {
+        opacity: 0.75,
+        position: "bottom center",
+        hideOnMouseOut: true
+      }
+    })
+
+    // 初始化aos
+    AOS.init({
+      duration: 1000,
+      delay: 0,
+      easing: 'ease-out-back'
+    });
+
+</script>
+<script>
+	POWERMODE.colorful = 'true';    // make power mode colorful
+	POWERMODE.shake = 'true';       // turn off shake
+	// TODO 这里根据具体情况修改
+	document.body.addEventListener('input', POWERMODE);
+</script>
+<script>
+    window.slideConfig = {
+      prefix: 'https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/gal/bg/%20SpecialBg/TouhouProject/bg',
+      ext: 'jpg',
+      maxCount: '6'
+    }
+</script>
+
+<script src="/js/hs.js"></script>
+<script src="/js/blog.js"></script>
+
+
+
+<script src="/js/oni.js"></script>
+
+
+
+
+</html>
