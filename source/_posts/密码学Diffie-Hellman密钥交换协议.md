@@ -7,7 +7,7 @@ tags:
 	- 学习
 categories:
 	- 密码学
-preview: https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/52pojie.jpg
+preview: 
 description: Diffie-Hellman密钥交换协议（Diffie-Hellman key exchange agreement）简称“D-H协议”，是1976年 Whitfield Diffie 和 Martin Hellman 合作发明的安全协议，它可以让双方在完全没有对方任何预先信息的条件下通过不安全信道创建起一个密钥。这个密钥可以在后续的通信中作为对称密钥来加密通信内容。
 ---
 

@@ -8,7 +8,7 @@ tags:
     - 逆向
 categories:
 	- CTF
-preview: https://boringboys-1254394685.cos.ap-shanghai.myqcloud.com/img/52pojie.jpg
+preview: 
 description: 
 ---
 
