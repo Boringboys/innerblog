@@ -10,8 +10,8 @@ Power By [Hexo](https://hexo.io/)
 1. 安装hexo，方法见 [hexo官网](https://hexo.io/)
 2. 执行以下命令：
 
-        git clone https://github.com/Boringboys/boringboys.github.io.git
-        cd boringboys.github.io
+        git clone https://github.com/Boringboys/innerblog.git
+        cd innerblog
         npm i
         hexo g
         hexo server
