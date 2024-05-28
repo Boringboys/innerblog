@@ -3,16 +3,13 @@ title: Hello World?
 author: Boringboys
 date: 0000-00-00 00:00:00
 tags:
-  - 恶意返乡
-  - 异常维权
+  - Hello World
 categories:
-	- 杂项
+	- Hello World
 preview: 
 description: 这世界真不错！！！
 ---
 
 ## 概述
-好！！！
-<!--more-->
 
-好～～～～！！！
+Hello World!
