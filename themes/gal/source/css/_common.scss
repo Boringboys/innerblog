@@ -371,7 +371,7 @@ button.close {
   @include gal-transform(scale(1) rotate(0deg));
   z-index: 999;
   &:hover {
-    @include gal-transform(scale(1.5) rotate(1deg));
+    @include gal-transform(scale(1.5) rotate(0deg));
   }
 }
 
